@@ -45,7 +45,7 @@ function gofetch()
             let l_check = cti_ledger_check(cti);
             let t_check = cti_transaction_check(cti);
             let uri = 'https://xrplcluster.com/';
-            
+
             let params = {
                 method: 'ledger',
                 params: [
@@ -82,8 +82,8 @@ function gofetch()
                                 document.getElementById('output').innerHTML = 'Invalid CTI: Failed txn checksum';
                                 return;
                             }
-                            
-                            document.getElementById('output').innerHTML = 
+
+                            document.getElementById('output').innerHTML =
                                 '<b>xrpl://cti/'+cti+' resolved to Transaction ' + txn_index + ' in Ledger ' + ledger_index + '</b>: <br/>' +
                                 JSON.stringify(txns[t],null,2).replaceAll('\n', '<br/>');
                             return;
@@ -100,7 +100,7 @@ function gofetch()
             document.getElementById('output').innerHTML = 'Checking ledger ' + ledger_index + '...';
             oReq.open("POST", uri, true);
             oReq.setRequestHeader("Content-Type", "application/json");
-            oReq.send(params);        
+            oReq.send(JSON.stringify(params));
         })(cti, oReq);
     }
     catch (e)
