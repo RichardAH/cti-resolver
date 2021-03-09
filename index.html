@@ -78,6 +78,7 @@ function gofetch()
                             return;
                         }
                     }
+                    document.getElementById('output').innerHTML = 'Invalid CTI: Could not locate txn in ledger.';
                 }
                 catch(e)
                 {
