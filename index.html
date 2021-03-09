@@ -63,6 +63,7 @@ function gofetch()
                 {
                     let txn_index = cti_transaction_index(cti);
                     let json = JSON.parse(oReq.responseText);
+                    json = json['result'];
                     if (json['result'] != 'success')
                         throw("");
 
