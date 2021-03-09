@@ -75,7 +75,7 @@ function gofetch()
                     let txns = json['ledger']['transactions'];
                     for (t in txns)
                     {
-                        if (txns[t]['meta']['TransactionIndex'] == txn_index)
+                        if (txns[t]['metaData']['TransactionIndex'] == txn_index)
                         {
                             // located!
                             if (BigInt(parseInt(txns[t]['hash'].slice(0,1), 16)) != t_check)
