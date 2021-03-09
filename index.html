@@ -44,7 +44,18 @@ function gofetch()
             let ledger_index = cti_ledger_index(cti);
             let l_check = cti_ledger_check(cti);
             let t_check = cti_transaction_check(cti);
-            let uri = 'https://data.ripple.com/v2/ledgers/' + ledger_index + '?transactions=true&binary=false&expand=true';
+            let uri = 'https://xrplcluster.com/';
+            
+            let params = {
+                method: 'ledger',
+                params: [
+                    {
+                        ledger_index: ledger_index,
+                        transactions: true,
+                        binary: false,
+                        expand: true
+                    }]
+            };
             oReq.addEventListener("load", (e)=>{
                 if (oReq.readyState != oReq.DONE)
                     return;
@@ -82,23 +93,23 @@ function gofetch()
                 }
                 catch(e)
                 {
-                    alert("Invalid CTI (ledger not found)");
-                    document.getElementById('output').innerHTML = '';
+                    document.getElementById('output').innerHTML = 'Invalid CTI (ledger not found)';
+                    return;
                 }
             });
             document.getElementById('output').innerHTML = 'Checking ledger ' + ledger_index + '...';
-            oReq.open("GET", uri);
-            oReq.send();        
+            oReq.open("POST", uri, true);
+            oReq.setRequestHeader("Content-Type", "application/json");
+            oReq.send(params);        
         })(cti, oReq);
     }
     catch (e)
     {
-        alert("Invalid CTI, should look like 67835576823535218");
-        document.getElementById('output').innerHTML = '';
+        document.getElementById('output').innerHTML = "Invalid CTI, should look like 67835576823535218";
     }
 }
     </script>
-        <h1>Use the box below to retreive a TXN based on its CTI using the xrpl data api</h1>
+    <h1>Use the box below to retreive a TXN based on its CTI</h1>
         <input type="text" id="cti" placeholder="cti e.g. 67835576823535218"/>
         <button onclick="gofetch()">Fetch</button>
 
